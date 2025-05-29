@@ -1,0 +1,117 @@
+<html>
+
+<body>
+
+<style>
+
+table,
+
+td,
+
+th {
+
+border: 1px solid black;
+
+width: 33%;
+
+text-align: center;
+
+border-collapse: collapse;
+
+background-color: lightblue;
+
+}
+
+table
+
+{
+
+margin: auto;}
+
+</style>
+
+<?php
+
+$servername = "localhost";
+
+$username = "root";
+
+$password = "";
+
+$dbname = "web";
+
+$a=[];
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if (!$conn)
+
+die("Connection failed: " . $conn->connect_error);
+
+ 
+
+# take inputs & store in local variables
+
+ $name = $_REQUEST['name'];
+
+ $addr1 = $_REQUEST['addr1'];
+
+ $addr2 = $_REQUEST['addr2'];
+
+ $email = $_REQUEST['email'];
+
+$crt1="INSERT INTO `student1`(`name`, `addr1`, `addr2`, `email`) VALUES
+
+('$name','$addr1','$addr2','$email')";
+
+$result1= mysqli_query($conn,$crt1);
+
+$sql = "SELECT * FROM student1";
+
+$result = mysqli_query($conn,$sql);
+
+echo "<br>";
+
+echo "<table border='2'>";
+
+echo "<tr>";
+
+echo 
+
+"<th>NAME</th><th>Address1</th><th>Address2</th><th>EMAIL</th></tr>";
+
+if ($result->num_rows> 0)
+
+{
+
+while($row = $result->fetch_assoc())
+
+{
+
+echo "<tr>";
+
+echo "<td>". $row["name"]."</td>";
+
+echo "<td>". $row["addr1"]."</td>";
+
+echo "<td>". $row["addr2"]."</td>";
+
+echo "<td>". $row["email"]."</td></tr>";
+
+array_push($a,$row["name"]);
+
+}
+
+}
+
+elseecho "Table is Empty";
+
+echo "</table>";
+
+$conn->close();
+
+?>
+
+</body>
+
+</html>
